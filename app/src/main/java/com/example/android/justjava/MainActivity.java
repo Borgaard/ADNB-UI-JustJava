@@ -38,17 +38,15 @@ public class MainActivity extends AppCompatActivity {
         displayQuantity(quantity);
     }
     public void submitOrder(View view){
-        int price = calculatePrice();
+//        int price = calculatePrice();
         //String priceMessage = "What could a banana cost, Michael? \n $" + price + " dollars?";
         //displayMessage(priceMessage);
         //String priceMessage = createOrderSummary(price);
-        displayMessage(createOrderSummary(price));
+        displayMessage(createOrderSummary());
     }
-    private String createOrderSummary(int priceOfOrder){
-        //String orderSummary =
+    private String createOrderSummary(){
         return "Name: Butternut Squash \nQuantity: " +quantity+ " \nTotal: $"
-                +priceOfOrder;
-        //return orderSummary;
+                +calculatePrice();
     }
 
     private int calculatePrice() {
@@ -59,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
      * This method displays the given quantity value on the screen.
      */
     private void displayMessage(String message){
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message);
+        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+        orderSummaryTextView.setText(message);
 
     }
     private void displayQuantity(int number) {
