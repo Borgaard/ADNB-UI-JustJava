@@ -11,8 +11,8 @@ package com.example.android.justjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 /**
@@ -20,8 +20,7 @@ import android.widget.TextView;
  */
 public class MainActivity extends AppCompatActivity {
     int quantity = 0;
-    boolean checked = false;
-//    int price = 0;
+    int price = 8;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,21 +39,23 @@ public class MainActivity extends AppCompatActivity {
         displayQuantity(quantity);
     }
 
-    public void toggleChecked(View view){
-        checked = !checked;
-    }
-
-
     public void submitOrder(View view){
-        //boolean checkWhippedCream = ((CheckBox) view).isChecked();
-        Boolean isCreamString = new Boolean(checked);
-        Log.i("MainActivity.java", isCreamString.toString());
+        CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.topping_whipped_cream);
+        boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
 
-        displayMessage(createOrderSummary(quantity, checked));
+        CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.topping_chocolate);
+        boolean hasChocolate = chocolateCheckBox.isChecked();
+        //Log.v("MainActivity", "Has chocolate: " + hasChocolate);
+
+
+        displayMessage(createOrderSummary(quantity, hasWhippedCream, hasChocolate));
     }
-    private String createOrderSummary(int cups, boolean checkCream){
-        return "Name: Butternut Squash \nQuantity: " +cups+ " \nTotal: $"
-                +calculatePrice()+ "\nWhipped cream? " + checkCream;
+    private String createOrderSummary(int cups, boolean addWhippedCream, boolean addChocolate){
+        return "Name: Butternut Squash " +
+                "\nQuantity: " +cups+ " " +
+                "\nTotal: $" +calculatePrice()+
+                "\nWhipped cream? " +addWhippedCream+
+                "\n Chocolate? " +addChocolate;
     }
 
 
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private int calculatePrice() {
-        return quantity * 8;
+        return quantity * price;
     }
 
     /**
