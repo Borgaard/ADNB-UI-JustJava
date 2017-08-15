@@ -11,6 +11,7 @@ package com.example.android.justjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import android.widget.TextView;
  */
 public class MainActivity extends AppCompatActivity {
     int quantity = 0;
+    boolean checked = false;
 //    int price = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +39,32 @@ public class MainActivity extends AppCompatActivity {
         quantity = quantity -1;
         displayQuantity(quantity);
     }
+
+    public void toggleChecked(View view){
+        checked = !checked;
+    }
+
+
     public void submitOrder(View view){
-//        int price = calculatePrice();
-        //String priceMessage = "What could a banana cost, Michael? \n $" + price + " dollars?";
-        //displayMessage(priceMessage);
-        //String priceMessage = createOrderSummary(price);
-        displayMessage(createOrderSummary());
+        //boolean checkWhippedCream = ((CheckBox) view).isChecked();
+        Boolean isCreamString = new Boolean(checked);
+        Log.i("MainActivity.java", isCreamString.toString());
+
+        displayMessage(createOrderSummary(quantity, checked));
     }
-    private String createOrderSummary(){
-        return "Name: Butternut Squash \nQuantity: " +quantity+ " \nTotal: $"
-                +calculatePrice();
+    private String createOrderSummary(int cups, boolean checkCream){
+        return "Name: Butternut Squash \nQuantity: " +cups+ " \nTotal: $"
+                +calculatePrice()+ "\nWhipped cream? " + checkCream;
     }
+
+
+
+
+
+
+
+
+
 
     private int calculatePrice() {
         return quantity * 8;
@@ -59,10 +76,13 @@ public class MainActivity extends AppCompatActivity {
     private void displayMessage(String message){
         TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
         orderSummaryTextView.setText(message);
-
     }
     private void displayQuantity(int number) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + number);
     }
+    //int price = calculatePrice();
+    //String priceMessage = "What could a banana cost, Michael? \n $" + price + " dollars?";
+    //displayMessage(priceMessage);
+    //String priceMessage = createOrderSummary(price);
 }
